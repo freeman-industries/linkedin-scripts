@@ -4,7 +4,9 @@
 (() => {
   const cards = document.querySelectorAll('ul li .artdeco-card');
   
-  const urls = [];
+  const urls = [
+    'Link,First name,Last name'
+  ];
   
   let succeeded = 0;
   let failed = 0;
@@ -20,7 +22,19 @@
     
     const href = `${link.protocol}//${link.hostname}${link.pathname}`;
     
-    urls.push(href);
+    let first_name = '';
+    let last_name = '';
+    
+    const name_element = card.querySelector('.artdeco-entity-lockup__title');
+    
+    if(name_element) {
+      const name = name_element.textContent.trim();
+      
+      first_name = name.split(' ')[0]; // just first word counts as first name
+      last_name = name.split(' ').slice(1).join(' '); // all other names go to last name
+    }
+    
+    urls.push(`${href},${first_name},${last_name}`);
     succeeded += 1;
   }
   
